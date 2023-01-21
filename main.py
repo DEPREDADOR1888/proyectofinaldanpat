@@ -1,25 +1,27 @@
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
+
 from flask import Flask
 app = Flask(__name__)
 @app.route("/")
 def main():
-    #Aqui va su código
-    img = cv.imread('RX.png', 0)
-    img = cv.medianBlur(img, 5)
-    ret, th1 = cv.threshold(img, 70, 255, cv.THRESH_BINARY)
-    th2 = cv.adaptiveThreshold(img, 255, cv.ADAPTIVE_THRESH_MEAN_C, \
-                               cv.THRESH_BINARY, 11, 2)
-    th3 = cv.adaptiveThreshold(img, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, \
-                               cv.THRESH_BINARY, 11, 2)
+    #Còdigo de Daniel
+
+    img = cv.imread('RX.png',0)
+    img = cv.medianBlur(img,5)
+    ret,th1 = cv.threshold(img,70,255,cv.THRESH_BINARY)
+    th2 = cv.adaptiveThreshold(img,255,cv.ADAPTIVE_THRESH_MEAN_C,\
+                cv.THRESH_BINARY,11,2)
+    th3 = cv.adaptiveThreshold(img,255,cv.ADAPTIVE_THRESH_GAUSSIAN_C,\
+                cv.THRESH_BINARY,11,2)
     titles = ['Original Image', 'Global Thresholding (v = 127)',
-              'Adaptive Mean Thresholding', 'Adaptive Gaussian Thresholding']
+                'Adaptive Mean Thresholding', 'Adaptive Gaussian Thresholding']
     images = [img, th1, th2, th3]
     for i in range(4):
-        plt.subplot(2, 2, i + 1), plt.imshow(images[i], 'gray')
+        plt.subplot(2,2,i+1),plt.imshow(images[i],'gray')
         plt.title(titles[i])
-        plt.xticks([]), plt.yticks([])
+        plt.xticks([]),plt.yticks([])
         result = cv.subtract(th3, th1)
         result2 = cv.subtract(img, result)
         cv.imshow('Result', result)
@@ -46,6 +48,5 @@ def main():
         cv.imshow('sobelx', sobelx)
         cv.imshow('result2', result2)
     plt.show()"""
+
     return result2
-
-
